@@ -1,3 +1,5 @@
+  /* App.css */
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row; /* Ensures that the sidebar and dashboard are in a row */
+}
+
+* {
+  box-sizing: border-box;
 }

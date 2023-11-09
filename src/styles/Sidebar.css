@@ -1,0 +1,23 @@
+/* src/Sidebar.css */
+  .sidebar {
+    background-color: #333; /* Or any other color you prefer */
+    color: #fff;
+    width: 250px; /* Adjust the width as needed */
+    height: 100vh; /* Full-height */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .sidebar-item {
+    display: block;
+    color: #fff;
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 18px;
+    /* Add more styling as needed */
+  }
+  
+  .sidebar-item:hover {
+    background-color: #444; /* Darker on hover */
+  }
+  

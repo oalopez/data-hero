@@ -1,0 +1,53 @@
+/* Card.css */
+
+.card {
+    background: #FFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 16px;
+    width: 300px; /* Adjust the width as needed */
+    font-family: 'Arial', sans-serif; /* Use your preferred font */
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .card-status {
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .card-last-run {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .card-button {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  
+  .card-button:hover {
+    background-color: #003d99;
+  }
+  
