@@ -1,4 +1,7 @@
-// src/Dashboard.js
+// Name: Dashboard.js
+// Desc: Dashboard component
+// Path: src/Dashboard.js
+
 import React from 'react';
 import Card from './Card';
 import './styles/Dashboard.css'; // Assuming you have a corresponding Dashboard CSS
@@ -11,13 +14,11 @@ const Dashboard = () => {
         title: 'Superfinanciera',
         status: 'Sin ejecutar',
         lastRun: null,
-        period: null,
     },
     {
         title: 'Medicina Legal',
         status: 'Sin ejecutar',
         lastRun: null,
-        period: null,
     },
     // ... more card data
   ];

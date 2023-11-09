@@ -1,8 +1,28 @@
-// src/Card.js
-import React from 'react';
-import './styles/Card.css'; // Make sure to create a corresponding CSS file
+// Name: Card.js
+// Desc: Card component
+// Path: src/Card.js
 
-const Card = ({ title, url, status, lastRun, period }) => {
+import React, { useState } from 'react';
+import './styles/Card.css';
+
+const Card = ({ title, lastRun }) => {
+  const [status, setStatus] = useState('Sin ejecutar');
+  const [temperature, setTemperature] = useState(null);
+
+  const fetchWeatherData = async () => {
+    try {
+      // Open-Meteo API URL with the coordinates for London, Ontario
+      const url = "https://api.open-meteo.com/v1/forecast?latitude=42.9849&longitude=-81.2453&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m";
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Error fetching weather data');
+      const data = await response.json();
+      setTemperature(data.current.temperature_2m);
+      setStatus('Done');
+    } catch (error) {
+      console.error('Failed to fetch weather data:', error);
+      setStatus('Error');
+    }
+  };
   return (
     <div className="card">
       <div className="card-content">
@@ -11,12 +31,15 @@ const Card = ({ title, url, status, lastRun, period }) => {
         {lastRun && (
           <div className="card-last-run">
             Última descarga terminada en: {lastRun}
-            <br />
-            Período: {period}
+          </div>
+        )}
+        {temperature && (
+          <div className="card-temperature">
+            Temperatura: {temperature} °C
           </div>
         )}
         <div className="card-actions">
-          <button className="card-button">Ejecutar</button>
+          <button className="card-button" onClick={fetchWeatherData}>Ejecutar</button>
         </div>
       </div>
     </div>
