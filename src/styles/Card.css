@@ -8,6 +8,7 @@
     padding: 16px;
     width: 300px; /* Adjust the width as needed */
     font-family: 'Arial', sans-serif; /* Use your preferred font */
+    position: relative; /* Add position relative to the card */
   }
   
   .card-content {
@@ -24,6 +25,7 @@
   .card-status {
     color: #666;
     margin-bottom: 16px;
+    margin-top: 16px;
   }
   
   .card-last-run {
@@ -50,4 +52,30 @@
   .card-button:hover {
     background-color: #003d99;
   }
-  
+
+  .card-icon-placeholder {
+    position: relative;
+    top: 0;
+    align-self: flex-end;
+    width: 100px;
+    text-align: center;
+  }
+
+  .card-icon {
+    /* */
+  }
+  .card-icon-green {
+    color: darkgreen;
+  }
+
+  .card-icon-red {
+    color: lightcoral;
+  }
+
+  .card-icon-yellow {
+    color: darkorange;
+  }
+
+  .card-icon-blue {
+    color: royalblue;
+  }

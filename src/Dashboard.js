@@ -1,32 +1,56 @@
 // Name: Dashboard.js
-// Desc: Dashboard component
+// Desc: Dashboard component. This is the component that will display the cards.
 // Path: src/Dashboard.js
 
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Card from './Card';
 import './styles/Dashboard.css'; // Assuming you have a corresponding Dashboard CSS
-import Sidebar from './Sidebar';
+import { CardStatusContext } from './CardStatusContext';
+import io from 'socket.io-client';
+
 
 const Dashboard = () => {
-  // Your data probably comes from an API, but we'll use static data for this example
+  const { cardStatuses, setCardStatuses } = useContext(CardStatusContext);
+
   const cardData = [
     {
+        id: 'superfinanciera',
         title: 'Superfinanciera',
-        status: 'Sin ejecutar',
         lastRun: null,
     },
     {
+        id: 'medicinal-legal',
         title: 'Medicina Legal',
-        status: 'Sin ejecutar',
         lastRun: null,
     },
     // ... more card data
   ];
 
+  useEffect(() => {
+    const socket = io('http://localhost:3001');
+
+    socket.on('message', (message) => {
+      const { cardId, status } = message;
+      console.log(`Received update for card ${cardId} with status ${status}`);
+
+      setCardStatuses((prevStatuses) => ({
+        ...prevStatuses,
+        [cardId]: status,
+      }));
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [setCardStatuses]);
+
+  // print the cardStatuses to the console
+  console.log(cardStatuses);
+
   return (
     <div className="dashboard">
-        {cardData.map((data, index) => (
-            <Card key={index} {...data} />
+        {cardData.map((data) => (
+            <Card key={data.id} {...data} status={cardStatuses[data.id]} />
         ))}
     </div>
   );
