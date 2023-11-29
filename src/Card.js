@@ -1,7 +1,6 @@
 // Name: Card.js
 // Desc: Card component. This is the component that will display the card status.
 // Path: src/Card.js
-
 import React, { useState } from 'react';
 import './styles/Card.css';
 
@@ -14,7 +13,7 @@ import './styles/Card.css';
  * @returns {JSX.Element} - The card component.
  */
 
-const Card = ({ title, lastRun, status }) => {
+const Card = ({ id, title, lastRun, status }) => {
   let iconClass = 'fa-regular fa-paper-plane fa-3x card-icon card-icon-blue';
   let statusText = 'Not executed';
 
@@ -39,6 +38,25 @@ const Card = ({ title, lastRun, status }) => {
       break;
   }
 
+  const handleClick = async () => {
+    const response = await fetch('http://localhost:8888/api/v1/crawls/'+id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({}) // Empty body
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      console.error(`Error: ${data.error}, Message: ${data.message}`);
+      return;
+    }
+
+    const data = await response.json();
+    console.log(`Card.js: Status: ${data.status}, Execution_Id: ${data.execution_id}`);
+  };
+
   return (
     <div className="card">
       <div className="card-content">
@@ -53,7 +71,7 @@ const Card = ({ title, lastRun, status }) => {
           </div>
         )}
         <div className="card-actions">
-          <button className="card-button">Ejecutar</button>
+          <button className="card-button" onClick={handleClick}>Ejecutar</button>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 // Name: Dashboard.js
 // Desc: Dashboard component. This is the component that will display the cards.
 // Path: src/Dashboard.js
-
 import React, { useContext, useEffect } from 'react';
 import Card from './Card';
 import './styles/Dashboard.css'; // Assuming you have a corresponding Dashboard CSS
@@ -26,26 +25,26 @@ const Dashboard = () => {
     // ... more card data
   ];
 
-  useEffect(() => {
-    const socket = io('http://localhost:3001');
+  // useEffect(() => {
+  //   const socket = io('http://localhost:3001');
 
-    socket.on('message', (message) => {
-      const { cardId, status } = message;
-      console.log(`Received update for card ${cardId} with status ${status}`);
+  //   socket.on('message', (message) => {
+  //     const { cardId, status } = message;
+  //     console.log(`Dashboard.js: Received update for card ${cardId} with status ${status}`);
 
-      setCardStatuses((prevStatuses) => ({
-        ...prevStatuses,
-        [cardId]: status,
-      }));
-    });
+  //     setCardStatuses((prevStatuses) => ({
+  //       ...prevStatuses,
+  //       [cardId]: status,
+  //     }));
+  //   });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [setCardStatuses]);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [setCardStatuses]);
 
   // print the cardStatuses to the console
-  console.log(cardStatuses);
+  // console.log(cardStatuses);
 
   return (
     <div className="dashboard">

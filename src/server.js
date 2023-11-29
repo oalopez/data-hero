@@ -1,6 +1,19 @@
 // Name: server.js
 // Desc: Server code. This is the code that will run on the server and handle the WebSocket connections.
 // Path: src/server.js
+const winston = require('winston');
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.combine(
+        winston.format.json(),
+        winston.format.prettyPrint()
+      ),
+    transports: [
+        new winston.transports.File({ filename: 'crawler-server-error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'crawler-server-combined.log' }),
+        new winston.transports.Console(),
+    ],
+});
 
 const express = require('express');
 const socketIo = require('socket.io');
@@ -20,20 +33,24 @@ app.use(express.json());
 
 app.post('/update-status', (req, res) => {
     const { cardId, status } = req.body;
-    console.log(`Received update for card ${cardId} with status ${status}. Notifying all clients...`);
+
+    // Print the completed request. Not the object, but the stringified version
+    logger.info(`Received update for card ${cardId} with status ${status}. Notifying all clients...`);
     // Broadcast the new status to all connected Socket.IO clients
     try {
         io.sockets.emit('message', { cardId, status });
     } catch (error) {
-        console.error('Error emitting message:', error);
+        logger.error('Error emitting message:', error);
         res.status(500).send('Error emitting message');
         return;
     }
 
     res.send(`Status of card ${cardId} updated to ${status}`);
-    console.log('Status updated for all clients');
+    logger.info('Status updated for all clients');
 });
 
 server.listen(3001, () => {
-    console.log('Server running at http://localhost:3001');
+    logger.info('Server running at http://localhost:3001');
 });
+
+//TODO: Avoid the multiple requests and subsequent error (from browser) when server is down
